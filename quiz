@@ -1,0 +1,148 @@
+//html
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fun Quiz App</title>
+  <link rel="stylesheet" href="quiz-style.css">
+</head>
+<body>
+  <div class="quiz-container">
+    <!-- Start Screen -->
+    <div id="start-screen" class="active">
+      <h1>🎉 Welcome to the Quiz 🎉</h1>
+      <p>Test your knowledge with 5 fun questions!</p>
+      <button id="start-btn">Start Quiz</button>
+    </div>
+
+    <!-- Quiz Screen -->
+    <div id="quiz-screen">
+      <h2 id="question-text"></h2>
+      <div id="options"></div>
+      <button id="next-btn">Next</button>
+    </div>
+
+    <!-- Result Screen -->
+    <div id="result-screen">
+      <h1>🏆 Quiz Completed!</h1>
+      <p id="score-text"></p>
+      <button id="restart-btn">Restart Quiz</button>
+    </div>
+  </div>
+
+  <script src="quiz-logic.js"></script>
+</body>
+</html>
+
+
+//css
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(135deg, #1e3c72, #2a5298);
+  color: #fff;
+  flex-direction: column;
+}
+
+h1 {
+  margin-bottom: 20px;
+  font-size: 2rem;
+}
+
+.timer-display {
+  font-size: 3rem;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+button {
+  padding: 10px 20px;
+  margin: 5px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: 0.3s;
+}
+
+button:hover {
+  opacity: 0.8;
+}
+
+#start { background: #4caf50; color: white; }
+#pause { background: #ff9800; color: white; }
+#reset { background: #f44336; color: white; }
+#lap { background: #2196f3; color: white; }
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin-top: 20px;
+  width: 220px;
+  text-align: left;
+}
+
+li {
+  background: rgba(255, 255, 255, 0.2);
+  margin: 5px 0;
+  padding: 6px;
+  border-radius: 4px;
+}
+
+
+//javascript
+
+let timer;
+let isRunning = false;
+let elapsedTime = 0;
+let startTime;
+
+const display = document.getElementById("display");
+const laps = document.getElementById("laps");
+
+function updateTime() {
+  const now = Date.now();
+  elapsedTime = now - startTime;
+  let totalSeconds = Math.floor(elapsedTime / 1000);
+  let hours = String(Math.floor(totalSeconds / 3600)).padStart(2, "0");
+  let minutes = String(Math.floor((totalSeconds % 3600) / 60)).padStart(2, "0");
+  let seconds = String(totalSeconds % 60).padStart(2, "0");
+  display.textContent = `${hours}:${minutes}:${seconds}`;
+}
+
+document.getElementById("start").addEventListener("click", () => {
+  if (!isRunning) {
+    startTime = Date.now() - elapsedTime;
+    timer = setInterval(updateTime, 1000);
+    isRunning = true;
+  }
+});
+
+document.getElementById("pause").addEventListener("click", () => {
+  if (isRunning) {
+    clearInterval(timer);
+    isRunning = false;
+  }
+});
+
+document.getElementById("reset").addEventListener("click", () => {
+  clearInterval(timer);
+  isRunning = false;
+  elapsedTime = 0;
+  display.textContent = "00:00:00";
+  laps.innerHTML = "";
+});
+
+document.getElementById("lap").addEventListener("click", () => {
+  if (isRunning) {
+    const li = document.createElement("li");
+    li.textContent = display.textContent;
+    laps.appendChild(li);
+  }
+});
