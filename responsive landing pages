@@ -1,0 +1,481 @@
+//html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Travel Explorer</title>
+  <link rel="stylesheet" href="page.css" />
+</head>
+<body>
+  <!-- Navbar -->
+  <header>
+    <nav class="navbar" id="navbar">
+      <div class="logo">TravelExplorer</div>
+      <div class="menu-toggle" id="menu-toggle">&#9776;</div>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#explore">Destinations</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="section home" id="home">
+    <div class="content">
+      <h1>Explore the World <br><span>Your Next Adventure Awaits</span></h1>
+      <p>Choose from curated trips across continents, with budgets and plans tailored for every traveler.</p>
+      <a href="#explore" class="btn">Explore Trips</a>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section class="section about" id="about">
+    <div class="about-container">
+      <div class="about-text">
+        <h2>Why Travel Explorer?</h2>
+        <p>
+          We help you discover breathtaking destinations with flexible budget
+          options. Whether you’re looking for luxury escapes, cultural trips,
+          or affordable backpacking, we’ve got you covered.
+        </p>
+      </div>
+      <div class="about-image">
+        <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470" alt="Adventure" />
+      </div>
+    </div>
+  </section>
+
+  <!-- Destination Explorer -->
+  <section class="section explore" id="explore">
+    <h2>Featured Destinations</h2>
+    <div class="card-container">
+      <!-- Maldives -->
+      <div class="card" data-destination="maldives">
+        <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e" alt="Maldives" />
+        <div class="card-content">
+          <h3>Maldives Escape</h3>
+          <p>7 days of luxury and relaxation on turquoise beaches.</p>
+          <p class="budget">Budget: $1,500 – $2,500</p>
+          <button class="btn learn-more" data-destination="maldives">Learn More</button>
+        </div>
+      </div>
+
+      <!-- Paris -->
+      <div class="card" data-destination="paris">
+        <img src="https://images.unsplash.com/photo-1469474968028-56623f02e42e" alt="Paris" />
+        <div class="card-content">
+          <h3>Paris Getaway</h3>
+          <p>5 days of culture, art, and fine dining in the city of love.</p>
+          <p class="budget">Budget: $1,200 – $2,000</p>
+          <button class="btn learn-more" data-destination="paris">Learn More</button>
+        </div>
+      </div>
+
+      <!-- Himalayas -->
+      <div class="card" data-destination="himalayas">
+        <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470" alt="Himalayas" />
+        <div class="card-content">
+          <h3>Himalayan Trek</h3>
+          <p>10 days of adventure with guided treks and local experiences.</p>
+          <p class="budget">Budget: $800 – $1,500</p>
+          <button class="btn learn-more" data-destination="himalayas">Learn More</button>
+        </div>
+      </div>
+
+      <!-- New York -->
+      <div class="card" data-destination="newyork">
+        <img src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800" alt="New York" />
+        <div class="card-content">
+          <h3>New York Explorer</h3>
+          <p>7 days exploring the Big Apple’s landmarks, shows, and nightlife.</p>
+          <p class="budget">Budget: $1,400 – $2,200</p>
+          <button class="btn learn-more" data-destination="newyork">Learn More</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section class="section contact" id="contact">
+    <div class="content">
+      <h2>Plan Your Dream Trip</h2>
+      <p>Let’s design an unforgettable journey for you.</p>
+      <a href="mailto:hello@travelexplorer.com" class="btn">Contact Us</a>
+    </div>
+  </section>
+
+  <!-- Modal -->
+  <div id="destinationModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <div id="modalBody"></div>
+    </div>
+  </div>
+
+  <script src="item.js"></script>
+</body>
+</html>
+
+//css
+/* General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Segoe UI", Arial, sans-serif;
+  line-height: 1.6;
+  color: #fff;
+}
+
+/* Navbar */
+header {
+  position: fixed;
+  width: 100%;
+  top: 0; left: 0;
+  z-index: 1000;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 40px;
+  background: transparent;
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+
+.navbar.scrolled {
+  background: rgba(0, 0, 0, 0.85);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.logo {
+  font-size: 28px;
+  font-weight: bold;
+  color: #00e0ff;
+}
+
+/* Nav Links */
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 25px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: white;
+  font-size: 18px;
+  padding: 8px 12px;
+  border-radius: 6px;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.nav-links a:hover {
+  background: #00e0ff;
+  color: #111;
+}
+
+/* Buttons */
+.btn {
+  display: inline-block;
+  padding: 12px 22px;
+  margin-top: 15px;
+  background: #00e0ff;
+  color: #111;
+  font-weight: bold;
+  text-decoration: none;
+  border-radius: 30px;
+  transition: all 0.3s ease;
+}
+
+.btn:hover {
+  background: #00b8cc;
+  transform: translateY(-2px);
+}
+
+/* Sections */
+.section {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 50px 20px;
+}
+
+.section .content {
+  max-width: 700px;
+}
+
+.home {
+  background: linear-gradient(135deg, #1e3c72, #2a5298);
+}
+
+.about {
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+}
+
+.about-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  align-items: center;
+  justify-content: center;
+}
+
+.about-text {
+  flex: 1;
+  min-width: 280px;
+  color: #eee;
+}
+
+.about-image img {
+  max-width: 400px;
+  border-radius: 12px;
+}
+
+.explore {
+  background: linear-gradient(135deg, #283c86, #45a247);
+}
+
+.contact {
+  background: linear-gradient(135deg, #8360c3, #2ebf91);
+}
+
+/* Cards */
+.card-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 25px;
+  margin-top: 30px;
+}
+
+.card {
+  background: #fff;
+  color: #333;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-8px);
+}
+
+.card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+.card-content {
+  padding: 18px;
+}
+
+.card-content h3 {
+  margin-bottom: 10px;
+  color: #222;
+}
+
+.card-content p {
+  margin-bottom: 8px;
+}
+
+.card .btn {
+  margin-top: 10px;
+  padding: 8px 16px;
+}
+
+/* Hamburger menu */
+.menu-toggle {
+  display: none;
+  font-size: 30px;
+  color: white;
+  cursor: pointer;
+}
+
+/* Modal */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 2000;
+  left: 0; top: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.7);
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  max-width: 700px;
+  width: 90%;
+  position: relative;
+  animation: fadeIn 0.4s ease;
+  color: #111;
+}
+
+.modal-content h2 {
+  margin-bottom: 15px;
+}
+
+.modal-content ul {
+  margin: 15px 0;
+  padding-left: 20px;
+}
+
+.modal-content p {
+  margin-bottom: 10px;
+}
+
+.close {
+  position: absolute;
+  top: 12px; right: 20px;
+  font-size: 28px;
+  cursor: pointer;
+  color: #333;
+}
+
+@keyframes fadeIn {
+  from {opacity: 0; transform: translateY(-20px);}
+  to {opacity: 1; transform: translateY(0);}
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .nav-links {
+    position: absolute;
+    top: 70px;
+    right: 0;
+    width: 220px;
+    background: rgba(0, 0, 0, 0.95);
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding: 20px 0;
+    display: none;
+    border-radius: 0 0 10px 10px;
+  }
+
+  .nav-links.show {
+    display: flex;
+  }
+
+  .menu-toggle {
+    display: block;
+  }
+
+  .about-container {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+//javascript
+                              // Navbar background change on scroll
+window.addEventListener("scroll", function () {
+  const navbar = document.getElementById("navbar");
+  if (window.scrollY > 50) {
+    navbar.classList.add("scrolled");
+  } else {
+    navbar.classList.remove("scrolled");
+  }
+});
+
+// Toggle menu for mobile
+const menuToggle = document.getElementById("menu-toggle");
+const navLinks = document.getElementById("nav-links");
+
+menuToggle.addEventListener("click", () => {
+  navLinks.classList.toggle("show");
+  menuToggle.innerHTML = navLinks.classList.contains("show") ? "✖" : "☰";
+});
+
+// Destination Data
+const destinations = {
+  maldives: {
+    title: "Maldives Escape",
+    description: "Experience 7 days of luxury in private villas surrounded by turquoise waters.",
+    highlights: [
+      "Private water villa stay",
+      "Scuba diving and snorkeling",
+      "Island hopping",
+      "Luxury spa sessions"
+    ],
+    budget: "$1,500 – $2,500"
+  },
+  paris: {
+    title: "Paris Getaway",
+    description: "A 5-day romantic escape in the city of lights and love.",
+    highlights: [
+      "Eiffel Tower visit",
+      "Seine river cruise",
+      "Louvre Museum tour",
+      "French wine & dining experiences"
+    ],
+    budget: "$1,200 – $2,000"
+  },
+  himalayas: {
+    title: "Himalayan Trek",
+    description: "Adventure-packed 10-day trek through the Himalayan ranges.",
+    highlights: [
+      "Guided trekking routes",
+      "Camping under the stars",
+      "Local cultural experiences",
+      "Mountain sunrise views"
+    ],
+    budget: "$800 – $1,500"
+  },
+  newyork: {
+    title: "New York Explorer",
+    description: "7 days exploring the Big Apple’s landmarks, shows, and nightlife.",
+    highlights: [
+      "Times Square & Broadway shows",
+      "Central Park walking tour",
+      "Statue of Liberty visit",
+      "Shopping on 5th Avenue"
+    ],
+    budget: "$1,400 – $2,200"
+  }
+};
+
+// Modal
+const modal = document.getElementById("destinationModal");
+const modalBody = document.getElementById("modalBody");
+const closeModal = document.querySelector(".close");
+
+document.querySelectorAll(".learn-more").forEach(button => {
+  button.addEventListener("click", () => {
+    const key = button.getAttribute("data-destination");
+    const destination = destinations[key];
+
+    modalBody.innerHTML = `
+      <h2>${destination.title}</h2>
+      <p>${destination.description}</p>
+      <h3>Highlights:</h3>
+      <ul>${destination.highlights.map(item => `<li>${item}</li>`).join("")}</ul>
+      <p><strong>Budget:</strong> ${destination.budget}</p>
+    `;
+
+    modal.style.display = "flex";
+  });
+});
+
+closeModal.addEventListener("click", () => {
+  modal.style.display = "none";
+});
+
+window.addEventListener("click", (e) => {
+  if (e.target === modal) modal.style.display = "none";
+});
